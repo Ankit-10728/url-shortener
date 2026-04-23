@@ -39,6 +39,7 @@ function App() {
     setCopied(true)
     navigator.clipboard.writeText(shorten);
     setTimeout(() => setCopied(false), 2000)
+    toast.success("Copied Successfully..")
   }
 
   const downloadQR = () => {
@@ -52,6 +53,7 @@ function App() {
     link.href = url;
     link.download = "qr-code.png";
     link.click();
+    toast.success("Qr downloaded...")
   }
 
   return (
