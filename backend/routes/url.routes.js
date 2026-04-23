@@ -34,7 +34,6 @@ router.post('/shorten', asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(200, newUrl, "Short URL created successfully")
         )
-
 }))
 
 router.get('/:id', asyncHandler(async (req, res) => {
