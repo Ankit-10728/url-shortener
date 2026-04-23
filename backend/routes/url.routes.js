@@ -6,6 +6,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { checkUrl } from "../utils/checkUrl.js";
 
+
 const router = express.Router();
 
 router.post('/shorten', asyncHandler(async (req, res) => {
@@ -59,9 +60,11 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
     await url.save();
 
-    res.status(200).json({
-        originalUrl: url.originalUrl
-    });
+    res.redirect(url.originalUrl)
+
+    // res.status(200).json({
+    //     originalUrl: url.originalUrl
+    // });
 }))
 
 router.get("/", (req, res) => {

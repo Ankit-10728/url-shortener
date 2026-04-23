@@ -1,17 +1,38 @@
 import { useState } from 'react'
 import api from "./api/axios.api.js"
+import { toast } from "react-toastify";
 
 function App() {
   const [url, setUrl] = useState("")
-  const [shorten, setShorten] = useState("http://short.ly/abc12656594651513")
+  const [shorten, setShorten] = useState("")
   const [copied, setCopied] = useState(false)
 
-  const handleShorten = () => {
+  const handleShorten = async () => {
+    try {
+      const res = await api.post("/shorten", { originalUrl: url });
+      if (!res) {
+        toast.info(
+          "Please Try after some time..."
+        );
+      }
 
+      const shortID = res?.data?.data?.shortId
+      setShorten(import.meta.env.VITE_API_URL + `/${shortID}`)
+      console.log(res.data);
+      console.log(shorten);
+      toast.success("URl shorten successfully...")
+
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Something went wrong..."
+      );
+    }
   }
 
   const handleCopy = () => {
-    if (shorten.trim().length <= 0) return
+    if (shorten.trim().length <= 0) {
+      toast.info("Nothing to copy...")
+    }
     setCopied(true)
     navigator.clipboard.writeText(shorten);
     setTimeout(() => setCopied(false), 2000)
@@ -45,9 +66,10 @@ function App() {
 
         <div className="w-200 flex items-center justify-between gap-4 bg-gray-700 px-6 py-4 rounded-2xl">
 
-          <span className="text-xl text-green-400 break-all">
-            {shorten}
-          </span>
+          <input className="text-xl w-full text-green-400 "
+            onChange={() => null}
+            value={shorten} placeholder='shorten url will be displayed here....'
+          />
 
           <button
             onClick={handleCopy}
