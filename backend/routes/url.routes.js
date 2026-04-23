@@ -13,7 +13,18 @@ router.post('/shorten', asyncHandler(async (req, res) => {
     const { originalUrl } = req.body;
     if (!originalUrl) throw new ApiError(400, "URL not found");
 
-    if (!checkUrl) throw new ApiError(404, "URL format is incorrect")
+    if (!checkUrl(originalUrl)) throw new ApiError(404, "URL format is incorrect")
+
+    let allreadyExist = await urlModel.findOne({
+        originalUrl: originalUrl
+    })
+
+    if (allreadyExist) {
+        res.status(200)
+            .json(
+                new ApiResponse(200, allreadyExist, "Short URL allready exist")
+            )
+    }
 
     let shortId;
     let exists = true;

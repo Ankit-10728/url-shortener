@@ -1,11 +1,11 @@
-
-
 function checkUrl(url) {
     try {
-        url = url.trim();
-        new url(url);
+        if (!url.startsWith("http")) {
+            url = "https://" + url;
+        }
+        new URL(url);
         return true;
-    } catch (error) {
+    } catch {
         return false;
     }
 }
