@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import api from "./api/axios.api.js"
 import { toast } from "react-toastify";
+import { QRCodeCanvas } from "qrcode.react";
+import { useRef } from 'react';
 
 function App() {
   const [url, setUrl] = useState("")
   const [shorten, setShorten] = useState("")
   const [copied, setCopied] = useState(false)
+  const qrRef = useRef(null);
 
   const handleShorten = async () => {
     try {
@@ -36,6 +39,19 @@ function App() {
     setCopied(true)
     navigator.clipboard.writeText(shorten);
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  const downloadQR = () => {
+    const canvas = qrRef.current;
+
+    if (!canvas) return;
+
+    const url = canvas.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "qr-code.png";
+    link.click();
   }
 
   return (
@@ -79,6 +95,33 @@ function App() {
           </button>
 
         </div>
+
+        {shorten && (
+          <div className="flex flex-col items-center mt-6 gap-4">
+
+            <div className="bg-white p-4 rounded-xl">
+              <QRCodeCanvas
+                ref={qrRef}
+                value={shorten}
+                size={180}
+              />
+            </div>
+
+
+
+            <button
+              onClick={downloadQR}
+              className="px-8 py-3 bg-gray-600 hover:bg-gray-500 rounded-lg text-sm transition active:scale-95"
+            >
+              Download QR
+            </button>
+
+            <p className="text-gray-400 text-lg">
+              Scan QR to open link
+            </p>
+
+          </div>
+        )}
 
       </div>
 
