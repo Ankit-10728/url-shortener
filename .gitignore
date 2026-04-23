@@ -1,21 +1,6 @@
-# Dependencies
 node_modules/
-
-# Environment variables (VERY IMPORTANT)
 .env
-
-# Logs
-*.log
-logs/
-
-# Build files
 dist/
 build/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE settings
+*.log
 .vscode/
-.idea/
