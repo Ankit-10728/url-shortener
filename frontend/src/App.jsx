@@ -12,6 +12,7 @@ function App() {
 
   const handleShorten = async () => {
     try {
+      setShorten("")
       const res = await api.post("/shorten", { originalUrl: url });
       if (!res) {
         toast.info(
