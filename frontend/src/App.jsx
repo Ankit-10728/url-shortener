@@ -8,11 +8,13 @@ function App() {
   const [url, setUrl] = useState("")
   const [shorten, setShorten] = useState("")
   const [copied, setCopied] = useState(false)
+  const [laoding, setLoading] = useState(false)
   const qrRef = useRef(null);
 
   const handleShorten = async () => {
     try {
       setShorten("")
+      setLoading(true)
       const res = await api.post("/shorten", { originalUrl: url });
       if (!res) {
         toast.info(
@@ -24,6 +26,7 @@ function App() {
       console.log(res);
 
       const shortID = res?.data?.data?.shortId
+      setLoading(false)
       setShorten(import.meta.env.VITE_API_URL + `/${shortID}`)
       console.log(res.data);
       console.log(shorten);
@@ -125,6 +128,13 @@ function App() {
             <p className="text-gray-400 text-lg">
               Scan QR to open link
             </p>
+
+
+            {laoding && <div className='text-lg'>
+              generating...
+            </div>
+
+            }
 
           </div>
         )}
