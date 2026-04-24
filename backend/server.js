@@ -22,6 +22,8 @@ mongoose.connect(process.env.MONGODB_URI)
         console.log("Connected to mongodb");
 
         app.listen(process.env.PORT, () => {
+            console.log("req hit");
+
             console.log(`App is listening in the port number ${process.env.PORT}`);
         })
     })

@@ -24,7 +24,7 @@ router.post('/shorten', asyncHandler(async (req, res) => {
     })
 
     if (allreadyExist) {
-        res.status(200)
+        return res.status(200)
             .json(
                 new ApiResponse(200, allreadyExist, "Short URL allready exist")
             )
