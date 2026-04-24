@@ -8,7 +8,7 @@ function App() {
   const [url, setUrl] = useState("")
   const [shorten, setShorten] = useState("")
   const [copied, setCopied] = useState(false)
-  const [laoding, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const qrRef = useRef(null);
 
   const handleShorten = async () => {
