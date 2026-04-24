@@ -13,8 +13,8 @@ function App() {
 
   const handleShorten = async () => {
     try {
-      setShorten("")
       setLoading(true)
+      setShorten("")
       const res = await api.post("/shorten", { originalUrl: url });
       if (!res) {
         toast.info(
@@ -82,7 +82,7 @@ function App() {
           onClick={handleShorten}
           className="w-200 text-2xl px-8 py-5 bg-gray-600 hover:bg-gray-500 mb-8 rounded-3xl transition active:scale-95"
         >
-          Shorten URL
+          {loading ? "generating..." : "Shorten URL"}
         </button>
 
         <div className="text-2xl text-gray-400 mb-6">
@@ -130,11 +130,9 @@ function App() {
             </p>
 
 
-            {laoding && <div className='text-lg'>
-              generating...
-            </div>
 
-            }
+
+
 
           </div>
         )}
