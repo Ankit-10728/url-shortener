@@ -62,9 +62,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
     res.redirect(url.originalUrl)
 
-    // res.status(200).json({
-    //     originalUrl: url.originalUrl
-    // });
+
 }))
 
 router.get("/", (req, res) => {
