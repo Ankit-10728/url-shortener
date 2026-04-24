@@ -20,6 +20,8 @@ function App() {
         );
       }
 
+      console.log(res);
+
       const shortID = res?.data?.data?.shortId
       setShorten(import.meta.env.VITE_API_URL + `/${shortID}`)
       console.log(res.data);
