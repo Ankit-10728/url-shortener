@@ -11,6 +11,9 @@ const router = express.Router();
 
 router.post('/shorten', asyncHandler(async (req, res) => {
 
+    console.log("shorten url has been hit");
+
+
     const { originalUrl } = req.body;
     if (!originalUrl) throw new ApiError(400, "URL not found");
 
