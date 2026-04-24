@@ -19,6 +19,7 @@ function App() {
           "Please Try after some time..."
         );
       }
+      console.log("print res");
 
       console.log(res);
 
